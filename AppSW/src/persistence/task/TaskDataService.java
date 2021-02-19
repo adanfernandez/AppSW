@@ -11,14 +11,12 @@ public interface TaskDataService {
 	
 	Connection getConnection();
 	
-	public List<Task> getTaskListByState(long sectionId) throws SQLException;
+	public List<Task> getTaskListByState(long stateId) throws SQLException;
 		
 	public boolean updateTask(Task uptdateTask, long taskId) throws SQLException;
 	
 	public boolean saveTask(Task newTask) throws SQLException;
 	
 	public boolean deleteTask(long taskId) throws SQLException;
-	
-	public boolean isOwner(long taskId, long userId) throws SQLException;
 
 }

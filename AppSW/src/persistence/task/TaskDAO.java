@@ -94,23 +94,6 @@ public class TaskDAO implements TaskDataService {
 		return false;
 	}
 
-	@Override
-	public boolean isOwner(long taskId, long userId) throws SQLException {
-		String query = "SELECT t.id FROM task t, state s, panel p, WHERE ? = p.user_id AND p.id = s.panel_id AND s.id = t.state_id AND t.id = ?;";
-		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
-			ps.setLong(1, userId);
-			ps.setLong(2, taskId);
-
-			ResultSet rs = ps.executeQuery();
-			return rs.next();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		} finally {
-			getConnection().close();
-		}
-		return false;
-	}
 
 	private Task getTask(ResultSet rs) throws SQLException {
 		Task newTask = new Task();
