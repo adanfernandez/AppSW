@@ -61,7 +61,7 @@ CREATE TABLE `task` (
   `descripcion` varchar(512) DEFAULT NULL,
   `id` int(11) NOT NULL,
   `id_state` int(11) NOT NULL,
-  `deleted` BOOLEAN
+  `deleted` BOOLEAN default false
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
