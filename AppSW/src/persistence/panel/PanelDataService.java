@@ -3,10 +3,8 @@ package persistence.panel;
 import model.Panel;
 
 public interface PanelDataService {
-	
-	
+		
 	public boolean savePanel(Panel panel);
-
 
 	public boolean updatePanel(Panel panel);
 	
