@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class User {
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 	
 	@NotNull
 	private String name;
@@ -34,11 +34,11 @@ public class User {
 		super();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

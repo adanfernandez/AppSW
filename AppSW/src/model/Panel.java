@@ -11,23 +11,23 @@ public class Panel {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 
 	@NotNull
 	private String name;
 
 	@NotNull
-	private int id_usuario;
+	private long userId;
 
 	public Panel() {
 		super();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -39,12 +39,12 @@ public class Panel {
 		this.name = name;
 	}
 
-	public int getId_usuario() {
-		return id_usuario;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setId_usuario(int id_usuario) {
-		this.id_usuario = id_usuario;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class Task {
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 
 	@NotNull
 	private String title;
@@ -24,17 +24,17 @@ public class Task {
 	private Date expirationDate;
 
 	@NotNull
-	private int id_state;
+	private long stateId;
 
 	public Task() {
 		super();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -70,12 +70,12 @@ public class Task {
 		this.expirationDate = expirationDate;
 	}
 
-	public int getId_state() {
-		return id_state;
+	public long getStateId() {
+		return stateId;
 	}
 
-	public void setId_state(int id_state) {
-		this.id_state = id_state;
+	public void setStateId(long stateId) {
+		this.stateId = stateId;
 	}
 
 }

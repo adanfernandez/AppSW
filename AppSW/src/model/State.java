@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class State {
 	@Id
 	@GeneratedValue
-	private int id;
+	private long id;
 
 	@NotNull
 	private int order;
@@ -19,17 +19,17 @@ public class State {
 	private String name;
 
 	@NotNull
-	private int id_panel;
+	private long panelId;
 
 	public State() {
 		super();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -49,12 +49,12 @@ public class State {
 		this.name = name;
 	}
 
-	public int getId_panel() {
-		return id_panel;
+	public long getPanelId() {
+		return panelId;
 	}
 
-	public void setId_panel(int id_panel) {
-		this.id_panel = id_panel;
+	public void setPanelId(long panelId) {
+		this.panelId = panelId;
 	}
 
 }
