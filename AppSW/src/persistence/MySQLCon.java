@@ -1,13 +1,18 @@
 package persistence;
 
-import java.sql.*;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import conf.Config;
 
 public class MySQLCon {
 
 	private Connection con;
-	private Config config = Config.getInstance();
+	private Config config = Config.getInstance();	
+
 
 	public Connection getConnection() {
 		if (con == null) {
@@ -17,12 +22,6 @@ public class MySQLCon {
 						.getConnection(config.get("JDBC") + config.get("HOST") + "/" + config.get("DATABASE") + "?user="
 								+ config.get("USERNAME") + "&password=" + config.get("PASSWORD") + "&allowPublicKeyRetrieval=true&useSSL=false");
 
-//				TODO: Delete
-//				Statement st = con.createStatement();
-//				ResultSet rs = st.executeQuery("SELECT email FROM user");
-//				while(rs.next()) {
-//					System.out.println(rs.getString(1));
-//				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
