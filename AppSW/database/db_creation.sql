@@ -46,7 +46,7 @@ CREATE TABLE `user` (
 --
 
 CREATE TABLE panel (
-  id int(11) NOT NULL PRIMARY KEY,
+  id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   name varchar(255) NOT NULL,
   user_id int(11) NOT NULL,
   deleted BOOLEAN default false,
@@ -75,7 +75,7 @@ CREATE TABLE state (
 --
 
 CREATE TABLE task (
-  id int(11) NOT NULL PRIMARY KEY,
+  id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   title varchar(255) NOT NULL,
   location int(11) DEFAULT NULL,
   expirationDate datetime DEFAULT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE task (
 --
 
 CREATE TABLE jwt (
-  id int(11) NOT NULL PRIMARY KEY,
+  id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   value varchar (512) NOT NULL,
   expiration dateTime NOT NULL,
   user_id int(11) NOT null,
