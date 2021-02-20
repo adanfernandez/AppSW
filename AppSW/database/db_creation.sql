@@ -23,13 +23,13 @@ SET time_zone = "+00:00";
 drop table if exists task;
 drop table if exists state;
 drop table if exists panel;
-drop table if exists user;
+drop table if exists `user`;
 
 --
 -- Estructura de tabla para la tabla `user`
 --
 
-CREATE TABLE user (
+CREATE TABLE `user` (
   id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   email varchar(255) NOT NULL,
   name varchar(255) NOT NULL,
