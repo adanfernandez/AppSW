@@ -1,0 +1,5 @@
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+	<endpoint name="PanelWSImpl" implementation="webservices.PanelWSImplementation" url-pattern="/soapws/panel" />
+	<endpoint name="StateWSImpl" implementation="webservices.StateWSImplementation" url-pattern="/soapws/state" />
+	<endpoint name="TaskWSImpl" implementation="webservices.TaskWSImplementation" url-pattern="/soapws/task" />
+</endpoints>

@@ -15,13 +15,13 @@ public class MySQLCon {
 
 
 	public Connection getConnection() {
+		
 		if (con == null) {
 			try {
 				Class.forName(config.get("DRIVER"));
 				this.con = DriverManager
 						.getConnection(config.get("JDBC") + config.get("HOST") + "/" + config.get("DATABASE") + "?user="
 								+ config.get("USERNAME") + "&password=" + config.get("PASSWORD") + "&allowPublicKeyRetrieval=true&useSSL=false");
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -31,7 +31,8 @@ public class MySQLCon {
 
 	public void closeConnection() {
 		try {
-			con.close();
+			this.con.close();
+			this.con = null;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

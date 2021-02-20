@@ -4,33 +4,40 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import business.panelmanager.PanelManagerService;
+import infraestructure.FactoryHelper;
 import model.Panel;
 
-@WebService(endpointInterface = "webservices.IpanelWS")
+@WebService(endpointInterface = "webservices.IPanelWS")
 public class PanelWSImplementation implements IPanelWS {
+
+	private PanelManagerService manager = null;
 
 	@Override
 	public List<Panel> getPanelsFromUser(long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return getManager().getPanelsFromUser(userId);
 	}
 
 	@Override
 	public boolean deletePanel(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		return getManager().deletePanel(id);
 	}
 
 	@Override
 	public boolean updatePanel(Panel updated) {
-		// TODO Auto-generated method stub
-		return false;
+		return getManager().updatePanel(updated);
 	}
 
 	@Override
 	public boolean savePanel(Panel newPanel) {
-		// TODO Auto-generated method stub
-		return false;
+		return getManager().savePanel(newPanel);
+	}
+
+	private PanelManagerService getManager() {
+		if (manager == null) {
+			manager = FactoryHelper.services.getPanelManagerService();
+		}
+		return manager;
 	}
 
 }

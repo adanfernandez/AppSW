@@ -14,6 +14,15 @@ import model.Task;
 public interface ITaskWS {
 	
 	@WebMethod
-	public List<Task> getTaskByState(long id);
+	public List<Task> getTaskByState(long stateId);
+	
+	@WebMethod
+	public boolean deleteTask(long id);
+	
+	@WebMethod
+	public boolean updateTask(Task updated);
+	
+	@WebMethod
+	public boolean saveTask(Task newTask);
 
 }

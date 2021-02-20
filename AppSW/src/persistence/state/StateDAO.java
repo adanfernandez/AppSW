@@ -1,6 +1,5 @@
 package persistence.state;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,12 +11,12 @@ import persistence.MySQLCon;
 
 public class StateDAO implements StateDataService {
 
-	private Connection connection = null;
+	private MySQLCon connection = null;
 
 	@Override
-	public Connection getConnection() {
+	public MySQLCon getDbConnection() {
 		if (connection == null) {
-			connection = new MySQLCon().getConnection();
+			connection = new MySQLCon();
 		}
 		return connection;
 	}
@@ -27,7 +26,7 @@ public class StateDAO implements StateDataService {
 		String query = "SELECT id, place, name, panel_id, deleted FROM state WHERE panel_id = ?;";
 		List<State> states = new ArrayList<State>();
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setLong(1, panelId);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -36,7 +35,7 @@ public class StateDAO implements StateDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return states;
 	}
@@ -45,7 +44,7 @@ public class StateDAO implements StateDataService {
 	public boolean updateState(State updatedState, long stateId) throws SQLException {
 		String query = "UPDATE state SET place = ?, name = ?, panel_id = ?, deleted = ? WHERE id= ?;";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setInt(1, updatedState.getPlace());
 			ps.setString(2, updatedState.getName());
 			ps.setLong(3, updatedState.getPanelId());
@@ -56,7 +55,7 @@ public class StateDAO implements StateDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}
@@ -65,7 +64,7 @@ public class StateDAO implements StateDataService {
 	public boolean saveState(State newState) throws SQLException {
 		String query = "INSERT INTO state(place, name, panel_id) VALUES (?, ?, ?);";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setInt(1, newState.getPlace());
 			ps.setString(2, newState.getName());
 			ps.setLong(3, newState.getPanelId());
@@ -75,7 +74,7 @@ public class StateDAO implements StateDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}
@@ -84,14 +83,14 @@ public class StateDAO implements StateDataService {
 	public boolean deleteState(long stateId) throws SQLException {
 		String query = "UPDATE state SET deleted=true WHERE id=?;";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setLong(1, stateId);
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}

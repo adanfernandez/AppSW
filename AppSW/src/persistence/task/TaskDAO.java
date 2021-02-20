@@ -1,24 +1,23 @@
 package persistence.task;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Task;
 import persistence.MySQLCon;
 
 public class TaskDAO implements TaskDataService {
 
-	private Connection connection = null;
+	private MySQLCon connection = null;
 
 	@Override
-	public Connection getConnection() {
+	public MySQLCon getDbConnection() {
 		if (connection == null) {
-			connection = new MySQLCon().getConnection();
+			connection = new MySQLCon();
 		}
 		return connection;
 	}
@@ -28,7 +27,7 @@ public class TaskDAO implements TaskDataService {
 		String query = "Select id, title, location, description, expirationDate, state_id, deleted FROM task WHERE state_id = ?;";
 		List<Task> tasks = new ArrayList<Task>();
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setLong(1, stateId);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -37,7 +36,7 @@ public class TaskDAO implements TaskDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return tasks;
 	}
@@ -46,7 +45,7 @@ public class TaskDAO implements TaskDataService {
 	public boolean updateTask(Task updatedTask, long taskId) throws SQLException {
 		String query = "UPDATE task SET title = ?, location = ?, expirationDate = ?, description = ?, id_state = ?, deleted = ? where id= ?;";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setString(1, updatedTask.getTitle());
 			ps.setString(2, updatedTask.getLocation());
 			ps.setDate(3, (Date) updatedTask.getExpirationDate());
@@ -59,7 +58,7 @@ public class TaskDAO implements TaskDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}
@@ -68,7 +67,7 @@ public class TaskDAO implements TaskDataService {
 	public boolean saveTask(Task newTask) throws SQLException {
 		String query = "INSERT INTO task(title, location, expirationDate, description, id_state) VALUES (?, ?, ?, ?, ?);";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setString(1, newTask.getTitle());
 			ps.setString(2, newTask.getLocation());
 			ps.setDate(3, (Date) newTask.getExpirationDate());
@@ -79,7 +78,7 @@ public class TaskDAO implements TaskDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}
@@ -88,14 +87,14 @@ public class TaskDAO implements TaskDataService {
 	public boolean deleteTask(long taskId) throws SQLException {
 		String query = "UPDATE task SET deleted=true WHERE id=?;";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setLong(1, taskId);
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}

@@ -1,14 +1,14 @@
 package persistence.panel;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import model.Panel;
+import persistence.MySQLCon;
 
 public interface PanelDataService {
 
-	Connection getConnection();
+	MySQLCon getDbConnection();
 
 	public List<Panel> getPanelListByUser(long userId) throws SQLException;
 

@@ -1,15 +1,14 @@
 package persistence.task;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-
 import model.Task;
+import persistence.MySQLCon;
 
 public interface TaskDataService {
 	
-	Connection getConnection();
+	MySQLCon getDbConnection();
 	
 	public List<Task> getTaskListByState(long stateId) throws SQLException;
 		

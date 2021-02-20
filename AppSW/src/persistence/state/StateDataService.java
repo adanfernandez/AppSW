@@ -1,14 +1,14 @@
 package persistence.state;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import model.State;
+import persistence.MySQLCon;
 
 public interface StateDataService {
 	
-	Connection getConnection();
+	MySQLCon getDbConnection();
 	
 	public List<State> getStateListByPanel(long panelId) throws SQLException;
 		

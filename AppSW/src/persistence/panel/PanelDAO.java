@@ -1,6 +1,5 @@
 package persistence.panel;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,12 +11,12 @@ import persistence.MySQLCon;
 
 public class PanelDAO implements PanelDataService {
 
-	private Connection connection = null;
+	private MySQLCon connection = null;
 
 	@Override
-	public Connection getConnection() {
+	public MySQLCon getDbConnection() {
 		if (connection == null) {
-			connection = new MySQLCon().getConnection();
+			connection = new MySQLCon();
 		}
 		return connection;
 	}
@@ -27,7 +26,7 @@ public class PanelDAO implements PanelDataService {
 		String query = "SELECT id, name, user_id, deleted FROM state WHERE user_id = ?;";
 		List<Panel> panels = new ArrayList<Panel>();
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setLong(1, userId);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -36,7 +35,7 @@ public class PanelDAO implements PanelDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return panels;
 	}
@@ -45,7 +44,7 @@ public class PanelDAO implements PanelDataService {
 	public boolean savePanel(Panel newPanel) throws SQLException {
 		String query = "INSERT INTO panel(name, user_id) VALUES (?, ?);";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setString(1, newPanel.getName());
 			ps.setLong(2, newPanel.getUserId());
 
@@ -54,7 +53,7 @@ public class PanelDAO implements PanelDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}
@@ -63,7 +62,7 @@ public class PanelDAO implements PanelDataService {
 	public boolean updatePanel(Panel updatedPanel, long panelId) throws SQLException {
 		String query = "UPDATE panel SET name = ?, user_id = ?, deleted = ? WHERE id= ?;";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setString(1, updatedPanel.getName());
 			ps.setLong(2, updatedPanel.getUserId());
 			ps.setBoolean(3, updatedPanel.isDeleted());
@@ -72,7 +71,7 @@ public class PanelDAO implements PanelDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}
@@ -81,14 +80,14 @@ public class PanelDAO implements PanelDataService {
 	public boolean deletePanel(long panelId) throws SQLException {
 		String query = "UPDATE panel SET deleted=true WHERE id=?;";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setLong(1, panelId);
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}
@@ -97,7 +96,7 @@ public class PanelDAO implements PanelDataService {
 	public boolean isOwner(long panelId, long userId) throws SQLException {
 		String query = "SELECT id FROM panel WHERE id = ? AND  user_id = ?";
 		try {
-			PreparedStatement ps = getConnection().prepareStatement(query);
+			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
 			ps.setLong(1, panelId);
 			ps.setLong(1, userId);
 			ResultSet rs = ps.executeQuery();
@@ -105,7 +104,7 @@ public class PanelDAO implements PanelDataService {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			getConnection().close();
+			getDbConnection().closeConnection();
 		}
 		return false;
 	}
