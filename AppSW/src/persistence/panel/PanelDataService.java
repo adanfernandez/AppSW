@@ -1,16 +1,22 @@
 package persistence.panel;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
 import model.Panel;
 
 public interface PanelDataService {
-		
-	public boolean savePanel(Panel panel);
 
-	public boolean updatePanel(Panel panel);
-	
-	public Panel getPanelById(long panel_id);
-	
-	public boolean deletePanel(Panel panel);
-	
-	public boolean isOwner(long panel_id, long user_id);
+	Connection getConnection();
+
+	public List<Panel> getPanelListByUser(long userId) throws SQLException;
+
+	public boolean savePanel(Panel newPanel) throws SQLException;
+
+	public boolean updatePanel(Panel updatedPanel, long panelId) throws SQLException;
+
+	public boolean deletePanel(long panelId) throws SQLException;
+
+	public boolean isOwner(long panelId, long userId) throws SQLException;
 }

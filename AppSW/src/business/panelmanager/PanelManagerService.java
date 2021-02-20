@@ -10,4 +10,8 @@ public interface PanelManagerService {
 	
 	public boolean deletePanel(Long id);
 	
+	public boolean updatePanel(Panel updated);
+	
+	public boolean savePanel(Panel newPanel);
+	
 }

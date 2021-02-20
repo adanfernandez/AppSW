@@ -12,14 +12,19 @@ import persistence.MySQLCon;
 
 public class StateDAO implements StateDataService {
 
+	private Connection connection = null;
+
 	@Override
 	public Connection getConnection() {
-		return new MySQLCon().getConnection();
+		if (connection == null) {
+			connection = new MySQLCon().getConnection();
+		}
+		return connection;
 	}
 
 	@Override
 	public List<State> getStateListByPanel(long panelId) throws SQLException {
-		String query = "Select id, order, name, panel_id FROM state WHERE panel_id = ?;";
+		String query = "SELECT id, place, name, panel_id, deleted FROM state WHERE panel_id = ?;";
 		List<State> states = new ArrayList<State>();
 		try {
 			PreparedStatement ps = getConnection().prepareStatement(query);
@@ -37,14 +42,15 @@ public class StateDAO implements StateDataService {
 	}
 
 	@Override
-	public boolean updateState(State uptdatedState, long stateId) throws SQLException {
-		String query = "UPDATE state SET order = ?, name = ?, panel_id = ? where id= ?;";
+	public boolean updateState(State updatedState, long stateId) throws SQLException {
+		String query = "UPDATE state SET place = ?, name = ?, panel_id = ?, deleted = ? WHERE id= ?;";
 		try {
 			PreparedStatement ps = getConnection().prepareStatement(query);
-			ps.setInt(1, uptdatedState.getOrder());
-			ps.setString(2, uptdatedState.getName());
-			ps.setLong(3, uptdatedState.getPanelId());
-			ps.setLong(4, stateId);
+			ps.setInt(1, updatedState.getPlace());
+			ps.setString(2, updatedState.getName());
+			ps.setLong(3, updatedState.getPanelId());
+			ps.setBoolean(4, updatedState.isDeleted());
+			ps.setLong(5, stateId);
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException ex) {
@@ -57,10 +63,10 @@ public class StateDAO implements StateDataService {
 
 	@Override
 	public boolean saveState(State newState) throws SQLException {
-		String query = "INSERT INTO state(order, name, panel_id) VALUES (?, ?, ?);";
+		String query = "INSERT INTO state(place, name, panel_id) VALUES (?, ?, ?);";
 		try {
 			PreparedStatement ps = getConnection().prepareStatement(query);
-			ps.setInt(1, newState.getOrder());
+			ps.setInt(1, newState.getPlace());
 			ps.setString(2, newState.getName());
 			ps.setLong(3, newState.getPanelId());
 
@@ -94,9 +100,10 @@ public class StateDAO implements StateDataService {
 		State newState = new State();
 
 		newState.setId(rs.getLong(1));
-		newState.setOrder(rs.getInt(2));
+		newState.setPlace(rs.getInt(2));
 		newState.setName(rs.getString(3));
 		newState.setPanelId(rs.getLong(4));
+		newState.setDeleted(rs.getBoolean(5));
 		return newState;
 	}
 

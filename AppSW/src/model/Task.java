@@ -22,6 +22,8 @@ public class Task {
 	private String description;
 
 	private Date expirationDate;
+	
+	private boolean deleted;
 
 	@NotNull
 	private long stateId;
@@ -78,4 +80,13 @@ public class Task {
 		this.stateId = stateId;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	
 }

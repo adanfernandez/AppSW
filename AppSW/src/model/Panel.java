@@ -18,6 +18,8 @@ public class Panel {
 
 	@NotNull
 	private long userId;
+	
+	private boolean deleted;
 
 	public Panel() {
 		super();
@@ -46,5 +48,15 @@ public class Panel {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 
 }

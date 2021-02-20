@@ -1,5 +1,11 @@
 #Fichero de propiedades de elementos como conexión a base de datos, comunicación con otros servicios, etc.
 #Para usarlo, quitar la extensión .example y completar las distintas propiedades
+
+#Factorias:
+SERVICES_FACTORY=
+PERSISTENCE_FACTORY=
+
+#Base de datos:
 DRIVER=
 JDBC=
 HOST=

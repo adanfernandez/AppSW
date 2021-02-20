@@ -13,13 +13,15 @@ public class State {
 	private long id;
 
 	@NotNull
-	private int order;
+	private int place;
 
 	@NotNull
 	private String name;
 
 	@NotNull
 	private long panelId;
+	
+	private boolean deleted;
 
 	public State() {
 		super();
@@ -33,12 +35,12 @@ public class State {
 		this.id = id;
 	}
 
-	public int getOrder() {
-		return order;
+	public int getPlace() {
+		return place;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
+	public void setPlace(int place) {
+		this.place = place;
 	}
 
 	public String getName() {
@@ -56,5 +58,15 @@ public class State {
 	public void setPanelId(long panelId) {
 		this.panelId = panelId;
 	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 
 }
