@@ -13,7 +13,7 @@ public class PanelManager implements PanelManagerService {
 	private PanelDataService dataService = null;
 
 	@Override
-	public List<Panel> getPanelsFromUser(Long userId) {
+	public List<Panel> getPanelsFromUser(long userId) {
 		List<Panel> panels = new ArrayList<Panel>();
 		try {
 			panels = getDataService().getPanelListByUser(userId);
@@ -26,7 +26,7 @@ public class PanelManager implements PanelManagerService {
 	}
 
 	@Override
-	public boolean deletePanel(Long id) {
+	public boolean deletePanel(long id) {
 		try {
 			return getDataService().deletePanel(id);
 		} catch (SQLException ex) {
