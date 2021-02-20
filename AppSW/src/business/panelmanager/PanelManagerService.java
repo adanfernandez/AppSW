@@ -6,9 +6,9 @@ import model.Panel;
 
 public interface PanelManagerService {
 	
-	public List<Panel> getPanelsFromUser(Long id);
+	public List<Panel> getPanelsFromUser(long id);
 	
-	public boolean deletePanel(Long id);
+	public boolean deletePanel(long id);
 	
 	public boolean updatePanel(Panel updated);
 	
