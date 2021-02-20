@@ -87,6 +87,21 @@ CREATE TABLE task (
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `Jwt`
+--
+
+CREATE TABLE jwt (
+  id int(11) NOT NULL PRIMARY KEY,
+  value varchar (512) NOT NULL,
+  expiration dateTime NOT NULL,
+  user_id int(11) NOT null,
+  FOREIGN KEY(user_id) REFERENCES user(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- --------------------------------------------------------
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
