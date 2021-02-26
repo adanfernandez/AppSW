@@ -23,6 +23,8 @@ SET time_zone = "+00:00";
 drop table if exists task;
 drop table if exists state;
 drop table if exists panel;
+drop table if exists telegram;
+drop table if exists jwt;
 drop table if exists `user`;
 
 --
@@ -37,6 +39,20 @@ CREATE TABLE `user` (
   phone varchar(12) DEFAULT NULL,
   password varchar(255) NOT NULL,
   deleted BOOLEAN default false
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `telegram`
+--
+CREATE TABLE telegram (
+	id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	user_id int(11) NOT NULL,
+	telegram_id varchar(255) NOT NULL,
+	deleted BOOLEAN DEFAULT FALSE,
+	notification_time int default 0,
+  	FOREIGN KEY(user_id) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -101,7 +117,6 @@ CREATE TABLE jwt (
 
 
 -- --------------------------------------------------------
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

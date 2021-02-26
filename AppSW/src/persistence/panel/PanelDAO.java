@@ -23,7 +23,7 @@ public class PanelDAO implements PanelDataService {
 
 	@Override
 	public List<Panel> getPanelListByUser(long userId) throws SQLException {
-		String query = "SELECT id, name, user_id, deleted FROM state WHERE user_id = ?;";
+		String query = "SELECT id, name, user_id, deleted FROM panel WHERE user_id = ?;";
 		List<Panel> panels = new ArrayList<Panel>();
 		try {
 			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
