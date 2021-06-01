@@ -7,6 +7,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
+import business.exceptions.DatabaseErrorException;
 import model.State;
 
 @WebService
@@ -14,15 +15,15 @@ import model.State;
 public interface IStateWS {
 	
 	@WebMethod
-	public List<State> getStatesFromPanel(long panelId);
+	public List<State> getStatesFromPanel(long panelId) throws DatabaseErrorException;
 	
 	@WebMethod
-	public boolean deleteState(long id);
+	public boolean deleteState(long id) throws DatabaseErrorException;
 	
 	@WebMethod
-	public boolean updateState(State updated);
+	public boolean updateState(State updated) throws DatabaseErrorException;
 	
 	@WebMethod
-	public boolean saveState(State newState);
+	public boolean saveState(State newState) throws DatabaseErrorException;
 
 }

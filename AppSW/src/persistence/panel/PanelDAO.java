@@ -34,6 +34,7 @@ public class PanelDAO implements PanelDataService {
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
@@ -52,10 +53,10 @@ public class PanelDAO implements PanelDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	@Override
@@ -70,10 +71,10 @@ public class PanelDAO implements PanelDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	@Override
@@ -86,10 +87,10 @@ public class PanelDAO implements PanelDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	@Override
@@ -103,10 +104,10 @@ public class PanelDAO implements PanelDataService {
 			return rs.next();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	private Panel getPanel(ResultSet rs) throws SQLException {

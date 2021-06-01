@@ -33,12 +33,13 @@ public class TaskDAO implements TaskDataService {
 			while (rs.next()) {
 				tasks.add(this.getTask(rs));
 			}
+			return tasks;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return tasks;
 	}
 
 	@Override
@@ -57,10 +58,10 @@ public class TaskDAO implements TaskDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	@Override
@@ -77,10 +78,10 @@ public class TaskDAO implements TaskDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	@Override
@@ -93,10 +94,10 @@ public class TaskDAO implements TaskDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	private Task getTask(ResultSet rs) throws SQLException {

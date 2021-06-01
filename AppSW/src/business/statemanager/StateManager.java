@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import business.exceptions.DatabaseErrorException;
 import infraestructure.FactoryHelper;
 import model.State;
 import persistence.state.StateDataService;
@@ -13,49 +14,46 @@ public class StateManager implements StateManagerService {
 	private StateDataService dataService = null;
 
 	@Override
-	public List<State> getStatesByPanel(long panelId) {
+	public List<State> getStatesByPanel(long panelId) throws DatabaseErrorException {
 		List<State> states = new ArrayList<State>();
 		try {
 			states = getDataService().getStateListByPanel(panelId);
 		} catch (SQLException ex) {
 			// TODO : VER COMO MEJORAR ESTA PARTE.
-			ex.printStackTrace();
+			throw new DatabaseErrorException();
 		}
 
 		return states;
 	}
 
 	@Override
-	public boolean deleteState(long id) {
+	public boolean deleteState(long id) throws DatabaseErrorException {
 		try {
 			return getDataService().deleteState(id);
 		} catch (SQLException ex) {
 			// TODO : VER COMO MEJORAR ESTA PARTE.
-			ex.printStackTrace();
+			throw new DatabaseErrorException();
 		}
-		return false;
 	}
 
 	@Override
-	public boolean updateState(State updated) {
+	public boolean updateState(State updated) throws DatabaseErrorException {
 		try {
 			return getDataService().updateState(updated, updated.getId());
 		} catch (SQLException ex) {
 			// TODO : VER COMO MEJORAR ESTA PARTE.
-			ex.printStackTrace();
+			throw new DatabaseErrorException();
 		}
-		return false;
 	}
 
 	@Override
-	public boolean saveState(State newState) {
+	public boolean saveState(State newState) throws DatabaseErrorException {
 		try {
 			return getDataService().saveState(newState);
 		} catch (SQLException ex) {
 			// TODO : VER COMO MEJORAR ESTA PARTE.
-			ex.printStackTrace();
+			throw new DatabaseErrorException();
 		}
-		return false;
 	}
 
 	private StateDataService getDataService() {

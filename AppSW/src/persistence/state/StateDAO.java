@@ -32,12 +32,13 @@ public class StateDAO implements StateDataService {
 			while (rs.next()) {
 				states.add(this.getState(rs));
 			}
+			return states;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return states;
 	}
 
 	@Override
@@ -54,10 +55,10 @@ public class StateDAO implements StateDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	@Override
@@ -73,10 +74,10 @@ public class StateDAO implements StateDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	@Override
@@ -89,10 +90,10 @@ public class StateDAO implements StateDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
-		return false;
 	}
 
 	private State getState(ResultSet rs) throws SQLException {

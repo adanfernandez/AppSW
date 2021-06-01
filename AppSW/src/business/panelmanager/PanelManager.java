@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import business.exceptions.DatabaseErrorException;
 import infraestructure.FactoryHelper;
 import model.Panel;
 import persistence.panel.PanelDataService;
@@ -13,49 +14,47 @@ public class PanelManager implements PanelManagerService {
 	private PanelDataService dataService = null;
 
 	@Override
-	public List<Panel> getPanelsFromUser(long userId) {
+	public List<Panel> getPanelsFromUser(long userId) throws DatabaseErrorException {
 		List<Panel> panels = new ArrayList<Panel>();
 		try {
 			panels = getDataService().getPanelListByUser(userId);
 		} catch (SQLException ex) {
 			// TODO : VER COMO MEJORAR ESTA PARTE.
-			ex.printStackTrace();
+			throw new DatabaseErrorException();
 		}
 
 		return panels;
 	}
 
 	@Override
-	public boolean deletePanel(long id) {
+	public boolean deletePanel(long id) throws DatabaseErrorException {
 		try {
 			return getDataService().deletePanel(id);
 		} catch (SQLException ex) {
 			// TODO : VER COMO MEJORAR ESTA PARTE.
-			ex.printStackTrace();
+			throw new DatabaseErrorException();
 		}
-		return false;
 	}
 
 	@Override
-	public boolean updatePanel(Panel updated) {
+	public boolean updatePanel(Panel updated) throws DatabaseErrorException {
 		try {
 			return getDataService().updatePanel(updated, updated.getId());
 		} catch (SQLException ex) {
 			// TODO : VER COMO MEJORAR ESTA PARTE.
-			ex.printStackTrace();
+			
+			throw new DatabaseErrorException();
 		}
-		return false;
 	}
 
 	@Override
-	public boolean savePanel(Panel newPanel) {
+	public boolean savePanel(Panel newPanel) throws DatabaseErrorException {
 		try {
 			return getDataService().savePanel(newPanel);
 		} catch (SQLException ex) {
 			// TODO : VER COMO MEJORAR ESTA PARTE.
-			ex.printStackTrace();
+			throw new DatabaseErrorException();
 		}
-		return false;
 	}
 	
 	private PanelDataService getDataService() {

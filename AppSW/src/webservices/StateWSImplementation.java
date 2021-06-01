@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import business.exceptions.DatabaseErrorException;
 import business.statemanager.StateManagerService;
 import infraestructure.FactoryHelper;
 import model.State;
@@ -14,22 +15,22 @@ public class StateWSImplementation implements IStateWS {
 	private StateManagerService manager = null;
 
 	@Override
-	public List<State> getStatesFromPanel(long panelId) {
+	public List<State> getStatesFromPanel(long panelId) throws DatabaseErrorException {
 		return getManager().getStatesByPanel(panelId);
 	}
 
 	@Override
-	public boolean deleteState(long id) {
+	public boolean deleteState(long id) throws DatabaseErrorException {
 		return getManager().deleteState(id);
 	}
 
 	@Override
-	public boolean updateState(State updated) {
+	public boolean updateState(State updated) throws DatabaseErrorException {
 		return getManager().updateState(updated);
 	}
 
 	@Override
-	public boolean saveState(State newState) {
+	public boolean saveState(State newState) throws DatabaseErrorException {
 		return getManager().saveState(newState);
 	}
 
