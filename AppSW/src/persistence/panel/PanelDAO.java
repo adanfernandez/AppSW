@@ -23,7 +23,7 @@ public class PanelDAO implements PanelDataService {
 
 	@Override
 	public List<Panel> getPanelListByUser(long userId) throws SQLException {
-		String query = "SELECT id, name, user_id, deleted FROM panel WHERE user_id = ?;";
+		String query = "SELECT id, name, user_id, deleted FROM panel WHERE user_id = ? AND deleted <> 1;";
 		List<Panel> panels = new ArrayList<Panel>();
 		try {
 			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
@@ -34,7 +34,6 @@ public class PanelDAO implements PanelDataService {
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
@@ -53,10 +52,10 @@ public class PanelDAO implements PanelDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
+		return false;
 	}
 
 	@Override
@@ -71,10 +70,10 @@ public class PanelDAO implements PanelDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
+		return false;
 	}
 
 	@Override
@@ -87,10 +86,10 @@ public class PanelDAO implements PanelDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
+		return false;
 	}
 
 	@Override
@@ -104,10 +103,10 @@ public class PanelDAO implements PanelDataService {
 			return rs.next();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
+		return false;
 	}
 
 	private Panel getPanel(ResultSet rs) throws SQLException {

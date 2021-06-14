@@ -76,7 +76,7 @@ CREATE TABLE panel (
 --
 
 CREATE TABLE state (
-  id int(11) NOT NULL PRIMARY KEY,
+  id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   name varchar(255) NOT NULL,
   place int(11) NOT NULL,
   panel_id int(11) NOT NULL,
@@ -98,6 +98,7 @@ CREATE TABLE task (
   description varchar(512) DEFAULT NULL,
   state_id int(11) NOT NULL,
   deleted BOOLEAN default false,
+  notified BOOLEAN default false
   FOREIGN KEY(state_id) REFERENCES state(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

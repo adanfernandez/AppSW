@@ -2,11 +2,13 @@ package model;
 
 import javax.persistence.GeneratedValue;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 @Entity
 public class Task {
@@ -21,7 +23,7 @@ public class Task {
 
 	private String description;
 
-	private Date expirationDate;
+	private XMLGregorianCalendar expirationDate;
 	
 	private boolean deleted;
 
@@ -64,11 +66,11 @@ public class Task {
 		this.description = description;
 	}
 
-	public Date getExpirationDate() {
+	public XMLGregorianCalendar getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(XMLGregorianCalendar expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 

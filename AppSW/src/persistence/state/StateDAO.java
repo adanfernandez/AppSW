@@ -23,7 +23,7 @@ public class StateDAO implements StateDataService {
 
 	@Override
 	public List<State> getStateListByPanel(long panelId) throws SQLException {
-		String query = "SELECT id, place, name, panel_id, deleted FROM state WHERE panel_id = ?;";
+		String query = "SELECT id, place, name, panel_id, deleted FROM state WHERE panel_id = ? AND deleted <> 1 ORDER BY id;";
 		List<State> states = new ArrayList<State>();
 		try {
 			PreparedStatement ps = getDbConnection().getConnection().prepareStatement(query);
@@ -32,13 +32,12 @@ public class StateDAO implements StateDataService {
 			while (rs.next()) {
 				states.add(this.getState(rs));
 			}
-			return states;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
+		return states;
 	}
 
 	@Override
@@ -55,10 +54,10 @@ public class StateDAO implements StateDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
+		return false;
 	}
 
 	@Override
@@ -74,10 +73,10 @@ public class StateDAO implements StateDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
+		return false;
 	}
 
 	@Override
@@ -90,10 +89,10 @@ public class StateDAO implements StateDataService {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw ex;
 		} finally {
 			getDbConnection().closeConnection();
 		}
+		return false;
 	}
 
 	private State getState(ResultSet rs) throws SQLException {
