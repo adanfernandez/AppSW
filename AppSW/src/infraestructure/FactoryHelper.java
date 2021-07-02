@@ -3,18 +3,16 @@ package infraestructure;
 import java.lang.reflect.InvocationTargetException;
 
 import business.BusinessFactory;
-import conf.Config;
 import persistence.DataServiceFactory;
 
 public class FactoryHelper {
 
-	private static Config config = Config.getInstance();
 
 	public static BusinessFactory services = (BusinessFactory) createFactory(
-			config.get("SERVICES_FACTORY"));
+			System.getenv("SERVICES_FACTORY"));
 	
 	public static DataServiceFactory dataServices = (DataServiceFactory) createFactory(
-			config.get("PERSISTENCE_FACTORY"));
+			System.getenv("PERSISTENCE_FACTORY"));
 	
 
 	public static Object createFactory(String factoryName) {
